@@ -1,9 +1,8 @@
 #class ContactInfo contained contact info
 
-class ContactInfo:
+class PrimaryInfo:
     def __init__(self, firstname, middlename, lastname, nickname, title, company, address, mobile_number,
-                        home_number, work, fax, email, bday, bmonth, byear, aday, amonth, ayear, address2, notes,
-                        phone2):
+                        home_number, work, fax, email, bday, bmonth, byear, aday, amonth, ayear):
         self.firstname = firstname
         self.middlename = middlename
         self.lastname = lastname
@@ -22,6 +21,10 @@ class ContactInfo:
         self.aday = aday
         self.amonth = amonth
         self.ayear = ayear
+
+
+class SecondaryInfo:
+    def __init__(self, address2, notes, phone2):
         self.address2 = address2
         self.notes = notes
         self.phone2 = phone2
