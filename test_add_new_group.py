@@ -9,7 +9,6 @@ class TestAddNewGroup(unittest.TestCase):
     def setUp(self):
         self.wd = webdriver.Firefox()
         self.wd.implicitly_wait(30)
-        self.base_url = "https://www.google.com/"
         self.verificationErrors = []
         self.accept_next_alert = True
 
@@ -27,14 +26,14 @@ class TestAddNewGroup(unittest.TestCase):
         # fill group name
         wd.find_element_by_name("group_name").click()
         wd.find_element_by_name("group_name").clear()
-        wd.find_element_by_name("group_name").send_keys(group_info.Name)
+        wd.find_element_by_name("group_name").send_keys(group_info.name)
         # fill group header
         wd.find_element_by_name("group_header").clear()
-        wd.find_element_by_name("group_header").send_keys(group_info.Header)
+        wd.find_element_by_name("group_header").send_keys(group_info.header)
         # fill group footer
         wd.find_element_by_name("group_footer").click()
         wd.find_element_by_name("group_footer").clear()
-        wd.find_element_by_name("group_footer").send_keys(group_info.Footer)
+        wd.find_element_by_name("group_footer").send_keys(group_info.footer)
         wd.find_element_by_id("content").click()
         # submit group creation
         wd.find_element_by_name("submit").click()
@@ -49,14 +48,14 @@ class TestAddNewGroup(unittest.TestCase):
         wd = self.wd
         self.open_home_page(wd)
         self.login(wd, username="admin", password="secret")
-        self.create_group(wd, GroupInfo(Name="test group", Header="test header", Footer="test footer"))
+        self.create_group(wd, GroupInfo(name="test group", header="test header", footer="test footer"))
         self.logout(wd)
 
     def test_add_empty_group(self):
         wd = self.wd
         self.open_home_page(wd)
         self.login(wd, username="admin", password="secret")
-        self.create_group(wd, GroupInfo(Name="", Header="", Footer=""))
+        self.create_group(wd, GroupInfo(name="", header="", footer=""))
         self.logout(wd)
 
 
