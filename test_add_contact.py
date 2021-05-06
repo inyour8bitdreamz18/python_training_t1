@@ -22,7 +22,7 @@ class TestAddContact(unittest.TestCase):
         self.add_new_contact(wd, (
             ContactInfo(firstname="Anna", middlename="Alexseevna", lastname="Pankova", nickname="annutahse12",
                         title="task 3!", company="testing", address="localhost",
-                        mobile_number="+79161234567", home_number="1234567", work="QA", fax="+123",
+                        mobile_number="+79161234567", home_number="1234567", work_number="QA", fax="+123",
                         email="test@mail.com",
                         bday="15", bmonth="October", byear="1995",
                         aday="13", amonth="September", ayear="2012",
@@ -86,10 +86,10 @@ class TestAddContact(unittest.TestCase):
         wd.find_element_by_name("mobile").click()
         wd.find_element_by_name("mobile").clear()
         wd.find_element_by_name("mobile").send_keys(contact_info.mobile_number)
-        # add work
+        # add work number
         wd.find_element_by_name("work").click()
         wd.find_element_by_name("work").clear()
-        wd.find_element_by_name("work").send_keys(contact_info.work)
+        wd.find_element_by_name("work").send_keys(contact_info.work_number)
         # add fax
         wd.find_element_by_name("fax").click()
         wd.find_element_by_name("fax").clear()

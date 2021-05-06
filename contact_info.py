@@ -2,7 +2,7 @@
 
 class ContactInfo:
     def __init__(self, firstname, middlename, lastname, nickname, title, company, address, mobile_number,
-                        home_number, work, fax, email, bday, bmonth, byear, aday, amonth, ayear, address2, notes, phone2):
+                 home_number, work_number, fax, email, bday, bmonth, byear, aday, amonth, ayear, address2, notes, phone2):
         self.firstname = firstname
         self.middlename = middlename
         self.lastname = lastname
@@ -12,7 +12,7 @@ class ContactInfo:
         self.address = address
         self.mobile_number = mobile_number
         self.home_number = home_number
-        self.work = work
+        self.work = work_number
         self.fax = fax
         self.email = email
         self.bday = bday
