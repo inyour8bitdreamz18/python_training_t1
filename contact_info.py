@@ -12,7 +12,7 @@ class ContactInfo:
         self.address = address
         self.mobile_number = mobile_number
         self.home_number = home_number
-        self.work = work_number
+        self.work_number = work_number
         self.fax = fax
         self.email = email
         self.bday = bday
