@@ -3,7 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
-import unittest
+import pytest
 from contact_info import ContactInfo
 
 
@@ -36,8 +36,8 @@ class TestAddContact(unittest.TestCase):
         wd.find_element_by_name("pass").send_keys(password)
         wd.find_element_by_xpath("//input[@value='Login']").click()
 
-    def open_home_page(self, driver):
-        driver.get("http://localhost/addressbook/group.php#")
+    def open_home_page(self, wd):
+        wd.get("http://localhost/addressbook/group.php#")
 
     def add_new_contact(self, wd, contact_info):
         # init contact creation
