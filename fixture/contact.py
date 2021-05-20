@@ -1,9 +1,31 @@
-
 from selenium.webdriver.support.ui import Select
 
 class ContactHelper:
     def __init__(self, app):
         self.app = app
+
+    def edit_contact_details(self):
+        wd = self.app.wd
+        #open contact details
+        wd.find_element_by_xpath("//img[@alt='Details']").click()
+        #submit editing
+        wd.find_element_by_name("modifiy").click()
+        wd.find_element_by_xpath("//form[@action='edit.php']").click()
+        #edit lastname
+        wd.find_element_by_name("lastname").clear()
+        wd.find_element_by_name("lastname").send_keys(u"Панькова")
+        wd.find_element_by_xpath("//form[@action='edit.php']").click()
+        #edit title
+        wd.find_element_by_name("title").clear()
+        wd.find_element_by_name("title").send_keys(u"задание 7")
+        wd.find_element_by_xpath("//form[@action='edit.php']").click()
+        #edit work number
+        wd.find_element_by_name("work").clear()
+        wd.find_element_by_name("work").send_keys("+789")
+        wd.find_element_by_xpath("//form[@action='edit.php']").click()
+        #submit updating
+        wd.find_element_by_xpath("(//input[@name='update'])[2]").click()
+        wd.find_element_by_link_text("home").click()
 
     def add_new_contact(self, contact_info):
         wd = self.app.wd
@@ -62,7 +84,6 @@ class ContactHelper:
         wd.find_element_by_name("fax").send_keys(contact_info.fax)
         # add email
         wd.find_element_by_name("email").click()
-        wd.find_element_by_name("email").click()
         wd.find_element_by_name("email").clear()
         wd.find_element_by_name("email").send_keys(contact_info.email)
         wd.find_element_by_name("theform").click()
@@ -107,6 +128,55 @@ class ContactHelper:
         # submit new contact
         wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()
 
+    def edit_first_contact(self):
+        wd = self.app.wd
+        #click on edit first contact
+        wd.find_element_by_xpath("//img[@alt='Edit']").click()
+        wd.find_element_by_xpath("//form[@action='edit.php']").click()
+        #edit firstname
+        wd.find_element_by_name("firstname").clear()
+        wd.find_element_by_name("firstname").send_keys(u"Анна")
+        wd.find_element_by_xpath("//form[@action='edit.php']").click()
+        #edit company
+        wd.find_element_by_name("company").clear()
+        wd.find_element_by_name("company").send_keys(u"Тестирование")
+        wd.find_element_by_xpath("//form[@action='edit.php']").click()
+        #edit title
+        wd.find_element_by_name("title").clear()
+        wd.find_element_by_name("title").send_keys(u"Задание 7")
+        #edit anniversary month
+        wd.find_element_by_name("amonth").click()
+        Select(wd.find_element_by_name("amonth")).select_by_visible_text("April")
+        wd.find_element_by_name("amonth").click()
+        wd.find_element_by_xpath("//form[@action='edit.php']").click()
+        #edit notes
+        wd.find_element_by_name("notes").clear()
+        wd.find_element_by_name("notes").send_keys(u"задание 7")
+        #update info
+        wd.find_element_by_xpath("(//input[@name='update'])[2]").click()
+        self.open_contact_table()
+
+    def delete_first_contact(self):
+        wd = self.app.wd
+        #select first contact
+        wd.find_element_by_name("selected[]").click()
+        #submit deletion
+        self.accept_nest_alert = True
+        wd.find_element_by_xpath("//input[@value='Delete']").click()
+        wd.switch_to_alert().accept()
+        self.open_contact_table()
+
+    def delete_all_contacts(self):
+        wd = self.app.wd
+        #select first contact
+        wd.find_element_by_id("MassCB").click()
+        #submit deletion
+        self.accept_nest_alert = True
+        wd.find_element_by_xpath("//input[@value='Delete']").click()
+        wd.switch_to_alert().accept()
+        self.open_contact_table()
+
+
     def open_contact_table(self):
         wd = self.app.wd
-        wd.find_element_by_link_text("home page").click()
+        wd.find_element_by_link_text("home").click()
