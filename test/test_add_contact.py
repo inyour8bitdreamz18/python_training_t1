@@ -12,7 +12,7 @@ def test_add_contact(app):
                     email="test@mail.com",
                     bday="15", bmonth="October", byear="1995",
                     aday="13", amonth="September", ayear="2012",
-                    address2="moscow", notes="task 3", phone2="home"))
+                    address2="moscow", notes="task 7", phone2="+456123789"))
     app.contact.open_contact_table()
     app.session.logout()
 
