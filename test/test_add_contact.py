@@ -4,7 +4,7 @@ from model.contact_info import ContactInfo
 
 def test_add_contact(app):
     app.open_home_page()
-    app.contact.add_new_contact(
+    app.contact.create(
         ContactInfo(firstname="Anna", middlename="Alexseevna", lastname="Pankova", nickname="annutahse12",
                     title="task 3!", company="testing", address="localhost",
                     mobile_number="+79161234567", home_number="1234567", work_number="+456", fax="+123",

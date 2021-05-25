@@ -4,7 +4,7 @@ class ContactHelper:
     def __init__(self, app):
         self.app = app
 
-    def add_new_contact(self, contact_info):
+    def create(self, contact_info):
         wd = self.app.wd
         self.open_contact_table()
         # init contact creation
@@ -110,3 +110,7 @@ class ContactHelper:
     def open_contact_table(self):
         wd = self.app.wd
         wd.find_element_by_link_text("home").click()
+
+    def count(self):
+        wd = self.app.wd
+        return len(wd.find_elements_by_name("selected[]"))
