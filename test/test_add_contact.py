@@ -4,7 +4,6 @@ from model.contact_info import ContactInfo
 
 def test_add_contact(app):
     app.open_home_page()
-    app.session.login(username="admin", password="secret")
     app.contact.add_new_contact(
         ContactInfo(firstname="Anna", middlename="Alexseevna", lastname="Pankova", nickname="annutahse12",
                     title="task 3!", company="testing", address="localhost",
@@ -14,5 +13,4 @@ def test_add_contact(app):
                     aday="13", amonth="September", ayear="2012",
                     address2="moscow", notes="task 7", phone2="+456123789"))
     app.contact.open_contact_table()
-    app.session.logout()
 
