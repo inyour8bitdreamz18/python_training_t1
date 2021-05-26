@@ -89,7 +89,7 @@ class ContactHelper:
         wd = self.app.wd
         self.open_contact_table()
         # select first contact
-        wd.find_element_by_name("selected[]").click()
+        self.select_first_contact()
         # submit deletion
         self.accept_nest_alert = True
         wd.find_element_by_xpath("//input[@value='Delete']").click()
@@ -109,8 +109,11 @@ class ContactHelper:
 
     def open_contact_table(self):
         wd = self.app.wd
-        wd.find_element_by_link_text("home").click()
+        if not((wd.current_url.endswith("./") and len(wd.find_elements_by_name("add"))) > 0):
+            return wd.find_element_by_link_text("home").click()
+
 
     def count(self):
         wd = self.app.wd
+        self.open_contact_table()
         return len(wd.find_elements_by_name("selected[]"))
