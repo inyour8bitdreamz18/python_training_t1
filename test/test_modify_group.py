@@ -3,9 +3,20 @@ from model.group_info import GroupInfo
 def test_modify_group_name(app):
     if app.group.count() == 0:
         app.group.create(GroupInfo(name="test"))
-    app.group.modify_first_group(GroupInfo(name="New group"))
+    old_groups = app.group.get_group_list()
+    group = GroupInfo(name="New group")
+    group.id = old_groups[0].id
+    app.group.modify_first_group(group)
+    new_groups = app.group.get_group_list()
+    assert len(old_groups) == len(new_groups)
+    old_groups[0] = group
+    assert sorted(old_groups, key=GroupInfo.id_or_max) == sorted(new_groups, key=GroupInfo.id_or_max)
 
-def test_modify_group_header(app):
-    if app.group.count() == 0:
-        app.group.create(GroupInfo(name="test"))
-    app.group.modify_first_group(GroupInfo(header="New header"))
+
+#def test_modify_group_header(app):
+    #if app.group.count() == 0:
+        #app.group.create(GroupInfo(name="test"))
+    #old_groups = app.group.get_group_list()
+    #app.group.modify_first_group(GroupInfo(header="New header"))
+    #new_groups = app.group.get_group_list()
+    #assert len(old_groups) == len(new_groups)
