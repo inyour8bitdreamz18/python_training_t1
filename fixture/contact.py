@@ -89,7 +89,6 @@ class ContactHelper:
     def delete_first_contact(self):
         wd = self.app.wd
         self.open_contact_table()
-        # select first contact
         self.select_first_contact()
         # submit deletion
         self.accept_nest_alert = True
@@ -127,9 +126,13 @@ class ContactHelper:
         wd = self.app.wd
         self.open_contact_table()
         contacts = []
-        for element in wd.find_elements_by_css_selector("tr[name=entry]"):
-            lastname = (element.find_element_by_css_selector("tr[name=entry]>td:nth-of-type(n+2)")).text
-            firstname = (element.find_element_by_css_selector("tr[name=entry]>td:nth-of-type(n+3)")).text
-            id = element.find_element_by_name("selected[]").get_attribute("value")
-            contacts.append(ContactInfo(firstname=firstname, lastname=lastname, id=id))
+        if self.count() != 0:
+            for element in wd.find_elements_by_css_selector("tr[name=entry]"):
+                text = element.text
+                print(text)
+                lastname = element.find_element_by_css_selector('td:nth-of-type(2)').text
+                firstname = element.find_element_by_css_selector('td:nth-of-type(3)').text
+                id = element.find_element_by_name('selected[]').get_attribute('value')
+                contacts.append(ContactInfo(firstname=firstname, lastname=lastname, id=id))
         return contacts
+
