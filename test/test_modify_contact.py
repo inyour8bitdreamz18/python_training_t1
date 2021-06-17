@@ -8,7 +8,7 @@ def test_modify_contact(app):
     contact.id = old_contacts[0].id
     app.contact.modify_first_contact(contact)
     new_contacts = app.contact.get_contact_list()
-    assert len(old_contacts) == len(new_contacts)
+    assert len(old_contacts) == app.contact.count()
     old_contacts[0] = contact
     assert sorted(old_contacts, key=ContactInfo.id_or_max) == sorted(new_contacts, key=ContactInfo.id_or_max)
 
@@ -19,8 +19,8 @@ def test_modify_contact_details(app):
     contact = ContactInfo(firstname="Annuta", company="", title= "", amonth="July", notes="New notes")
     contact.id = old_contacts[0].id
     app.contact.modify_contact_details(contact)
+    assert len(old_contacts) == app.contact.count()
     new_contacts = app.contact.get_contact_list()
-    assert len(old_contacts) == len(new_contacts)
     old_contacts[0] = contact
     assert sorted(old_contacts, key=ContactInfo.id_or_max) == sorted(new_contacts, key=ContactInfo.id_or_max)
 

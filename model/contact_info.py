@@ -32,7 +32,7 @@ class ContactInfo:
         self.id = id
 
     def __repr__(self):
-        return " firstname:%s\n lastname:%s\n id:%s\n" % (self.firstname, self.lastname, self.id)
+        return "\nfirstname:%s\n lastname:%s\n id:%s\n" % (self.firstname, self.lastname, self.id)
 
     def __eq__(self, other):
         return (self.id is None or other.id is None or self.id == other.id) and (self.firstname is None or other.firstname is None or self.firstname == other.firstname) and (self.lastname is None or other.lastname is None or self.lastname == other.lastname)

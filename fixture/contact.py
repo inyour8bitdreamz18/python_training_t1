@@ -38,6 +38,7 @@ class ContactHelper:
         # submit new contact
         wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()
         self.return_to_contact_table()
+        self.contact_cache = None
 
     def change_field_value(self, field_name, text):
         wd = self.app.wd
@@ -72,6 +73,7 @@ class ContactHelper:
         #submit editing
         wd.find_element_by_name("update").click()
         self.return_to_contact_table()
+        self.contact_cache = None
 
     def modify_first_contact(self, contact_info):
         wd = self.app.wd
@@ -85,6 +87,7 @@ class ContactHelper:
         self.change_field_value("notes", contact_info.notes)
         wd.find_element_by_xpath("(//input[@name='update'])[2]").click()
         self.return_to_contact_table()
+        self.contact_cache = None
 
     def delete_first_contact(self):
         wd = self.app.wd
@@ -95,6 +98,7 @@ class ContactHelper:
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to_alert().accept()
         self.open_contact_table()
+        self.contact_cache = None
 
     def delete_all_contacts(self):
         wd = self.app.wd
@@ -106,6 +110,7 @@ class ContactHelper:
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to_alert().accept()
         self.open_contact_table()
+        self.contact_cache = None
 
     def open_contact_table(self):
         wd = self.app.wd
@@ -122,17 +127,18 @@ class ContactHelper:
         self.open_contact_table()
         return len(wd.find_elements_by_name("selected[]"))
 
+    contact_cache = None
+
     def get_contact_list(self):
-        wd = self.app.wd
-        self.open_contact_table()
-        contacts = []
-        if self.count() != 0:
-            for element in wd.find_elements_by_css_selector("tr[name=entry]"):
-                text = element.text
-                print(text)
-                lastname = element.find_element_by_css_selector('td:nth-of-type(2)').text
-                firstname = element.find_element_by_css_selector('td:nth-of-type(3)').text
-                id = element.find_element_by_name('selected[]').get_attribute('value')
-                contacts.append(ContactInfo(firstname=firstname, lastname=lastname, id=id))
-        return contacts
+        if self.contact_cache is None:
+            wd = self.app.wd
+            self.open_contact_table()
+            self.contact_cache = []
+            if self.count() != 0:
+                for element in wd.find_elements_by_css_selector("tr[name=entry]"):
+                    lastname = element.find_element_by_css_selector('td:nth-of-type(2)').text
+                    firstname = element.find_element_by_css_selector('td:nth-of-type(3)').text
+                    id = element.find_element_by_name('selected[]').get_attribute('value')
+                    self.contact_cache.append(ContactInfo(firstname=firstname, lastname=lastname, id=id))
+        return list(self.contact_cache)
 
