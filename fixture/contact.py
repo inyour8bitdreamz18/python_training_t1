@@ -40,6 +40,7 @@ class ContactHelper:
         self.return_to_contact_table()
         self.contact_cache = None
 
+
     def change_field_value(self, field_name, text):
         wd = self.app.wd
         if text is not None:
@@ -53,14 +54,17 @@ class ContactHelper:
             wd.find_element_by_name(fieldname).click()
             Select(wd.find_element_by_name(fieldname)).select_by_visible_text(text)
 
-    def select_first_contact(self):
+    def select_contact_by_index(self, index):
         wd = self.app.wd
-        wd.find_element_by_name("selected[]").click()
+        wd.find_elements_by_name("selected[]")[index].click()
 
-    def modify_contact_details(self, contact_info):
+    def select_first_contact(self):
+        self.select_contact_by_index(0)
+
+    def modify_contact_by_index_details(self, contact_info, index):
         wd = self.app.wd
         self.open_contact_table()
-        self.select_first_contact()
+        self.select_contact_by_index(index)
         #open contact details
         wd.find_element_by_xpath("//img[@alt='Details']").click()
         wd.find_element_by_name("modifiy").click()
@@ -75,30 +79,39 @@ class ContactHelper:
         self.return_to_contact_table()
         self.contact_cache = None
 
-    def modify_first_contact(self, contact_info):
+    def modify_contact_details(self):
+        self.modify_contact_by_index_details(0)
+
+    def modify_contact_by_index(self, contact_info, index):
         wd = self.app.wd
         self.open_contact_table()
-        # click on edit first contact
-        self.select_first_contact()
+        # click on edit contact by index
+        self.select_contact_by_index(index)
         wd.find_element_by_xpath("//img[@alt='Edit']").click()
+        # change some field values
         self.change_field_value("firstname", contact_info.firstname)
+        self.change_field_value("lastname", contact_info.lastname)
         self.change_field_value("title", contact_info.title)
         self.select_field_value("amonth", contact_info.amonth)
         self.change_field_value("notes", contact_info.notes)
+        #update modified data
         wd.find_element_by_xpath("(//input[@name='update'])[2]").click()
         self.return_to_contact_table()
         self.contact_cache = None
 
-    def delete_first_contact(self):
+    def delete_contact_by_index(self, index):
         wd = self.app.wd
         self.open_contact_table()
-        self.select_first_contact()
+        self.select_contact_by_index(index)
         # submit deletion
-        self.accept_nest_alert = True
+        self.accept_next_alert = True
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to_alert().accept()
-        self.open_contact_table()
+        self.app.open_home_page()
         self.contact_cache = None
+
+    def delete_first_contact(self):
+        self.delete_contact_by_index(0)
 
     def delete_all_contacts(self):
         wd = self.app.wd
@@ -109,7 +122,7 @@ class ContactHelper:
         self.accept_next_alert = True
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to_alert().accept()
-        self.open_contact_table()
+        self.app.open_home_page()
         self.contact_cache = None
 
     def open_contact_table(self):
