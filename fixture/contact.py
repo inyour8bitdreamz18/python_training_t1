@@ -87,7 +87,7 @@ class ContactHelper:
         self.open_contact_table()
         # click on edit contact by index
         self.select_contact_by_index(index)
-        wd.find_element_by_xpath("//img[@alt='Edit']").click()
+        wd.find_elements_by_xpath("//img[@alt='Edit']")[index].click()
         # change some field values
         self.change_field_value("firstname", contact_info.firstname)
         self.change_field_value("lastname", contact_info.lastname)
