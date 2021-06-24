@@ -19,6 +19,7 @@ def test_modify_some_contact_details(app):
     if app.contact.count() == 0:
         app.contact.create(ContactInfo(firstname="test", middlename="test"))
     old_contacts = app.contact.get_contact_list()
+    print(old_contacts)
     index = randrange(len(old_contacts))
     contact = ContactInfo(firstname="Annuta", company="", title= "", amonth="July", notes="New notes")
     contact.id = old_contacts[index].id
